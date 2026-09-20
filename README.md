@@ -13,12 +13,12 @@ Portfolio de pruebas para demostrar habilidades en testing manual, automatizaci�
 
 ## 📁 Estructura
 
-```
-01-manual/        → Test cases, Bug reports, Test plans
-02-automation/    → Playwright, Postman, Newman
-03-performance/   → k6 scripts, Reportes
-04-ci-cd/         → Workflows de GitHub Actions
-```
+| Módulo | Contenido |
+|--------|-----------|
+| [01-manual/](01-manual/) | Test cases, Bug reports, Test plans |
+| [02-automation/](02-automation/) | Playwright, Postman, Newman |
+| [03-performance/](03-performance/) | k6 scripts, Reportes |
+| [04-ci-cd/](04-ci-cd/) | Workflows de GitHub Actions |
 
 ## 📊 Estado del Proyecto
 
