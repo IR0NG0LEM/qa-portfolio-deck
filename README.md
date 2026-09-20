@@ -1,4 +1,4 @@
-# QA Portfolio — Ramón Beltrán (Momo)
+# QA Portfolio — Ramón Beltrán
 
 > **QA Tester Jr. | Manual + Automation + Performance**
 
@@ -27,8 +27,8 @@ Portfolio de pruebas para demostrar habilidades en testing manual, automatizaci�
 | Manual | 🟡 En construcción |
 | Automation | 🟡 En construcción |
 | Performance | 🔴 Pendiente |
-| CI/CD | 🔴 Pendiente |
+| CI/CD | 🟡 Workflow activo |
 
 ---
 
-*En construcción — Última actualización: 2026-09-19*
+*En construcción — Última actualización: 2026-09-20*
