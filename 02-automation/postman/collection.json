@@ -1,0 +1,179 @@
+{
+  "info": {
+    "name": "JSONPlaceholder API Tests",
+    "description": "Colección de pruebas API para JSONPlaceholder (https://jsonplaceholder.typicode.com) — módulo de automatización del portfolio QA.\n\nCubre los 5 métodos CRUD sobre /posts con validaciones de status, estructura y contenido.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "GET /posts — listar todos",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Status 200\", () => pm.response.to.have.status(200));",
+              "pm.test(\"Respuesta es JSON\", () => pm.response.to.be.json);",
+              "pm.test(\"Devuelve 100 posts\", () => {",
+              "  const data = pm.response.json();",
+              "  pm.expect(data).to.be.an('array');",
+              "  pm.expect(data).to.have.lengthOf(100);",
+              "});",
+              "pm.test(\"Cada post tiene la estructura correcta\", () => {",
+              "  const data = pm.response.json();",
+              "  data.forEach(post => {",
+              "    pm.expect(post).to.have.all.keys('userId', 'id', 'title', 'body');",
+              "  });",
+              "});",
+              "pm.test(\"Tiempo de respuesta < 2000ms\", () => pm.expect(pm.response.responseTime).to.be.below(2000));"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "{{base_url}}/posts",
+          "host": ["{{base_url}}"],
+          "path": ["posts"]
+        }
+      }
+    },
+    {
+      "name": "GET /posts/1 — obtener uno",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Status 200\", () => pm.response.to.have.status(200));",
+              "pm.test(\"Estructura correcta\", () => {",
+              "  const data = pm.response.json();",
+              "  pm.expect(data).to.have.all.keys('userId', 'id', 'title', 'body');",
+              "  pm.expect(data.id).to.eql(1);",
+              "  pm.expect(data.userId).to.eql(1);",
+              "});",
+              "pm.test(\"Title no vacío\", () => {",
+              "  const data = pm.response.json();",
+              "  pm.expect(data.title).to.be.a('string').and.not.empty;",
+              "});"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "{{base_url}}/posts/1",
+          "host": ["{{base_url}}"],
+          "path": ["posts", "1"]
+        }
+      }
+    },
+    {
+      "name": "POST /posts — crear",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Status 201 Created\", () => pm.response.to.have.status(201));",
+              "pm.test(\"Respuesta contiene el recurso creado\", () => {",
+              "  const data = pm.response.json();",
+              "  pm.expect(data.title).to.eql('QA Portfolio Test Post');",
+              "  pm.expect(data.body).to.eql('Post creado por la colección de pruebas del portfolio QA.');",
+              "  pm.expect(data.userId).to.eql(1);",
+              "  pm.expect(data.id).to.eql(101);",
+              "});"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"title\": \"QA Portfolio Test Post\",\n  \"body\": \"Post creado por la colección de pruebas del portfolio QA.\",\n  \"userId\": 1\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/posts",
+          "host": ["{{base_url}}"],
+          "path": ["posts"]
+        }
+      }
+    },
+    {
+      "name": "PUT /posts/1 — actualizar",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Status 200\", () => pm.response.to.have.status(200));",
+              "pm.test(\"Campos actualizados\", () => {",
+              "  const data = pm.response.json();",
+              "  pm.expect(data.id).to.eql(1);",
+              "  pm.expect(data.title).to.eql('Título actualizado por QA');",
+              "  pm.expect(data.userId).to.eql(1);",
+              "});"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "PUT",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"id\": 1,\n  \"title\": \"Título actualizado por QA\",\n  \"body\": \"Contenido actualizado por la colección QA.\",\n  \"userId\": 1\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/posts/1",
+          "host": ["{{base_url}}"],
+          "path": ["posts", "1"]
+        }
+      }
+    },
+    {
+      "name": "DELETE /posts/1 — eliminar",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Status 200\", () => pm.response.to.have.status(200));",
+              "pm.test(\"Respuesta es objeto vacío (recurso eliminado)\", () => {",
+              "  const data = pm.response.json();",
+              "  pm.expect(data).to.be.an('object').and.to.be.empty;",
+              "});"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "DELETE",
+        "url": {
+          "raw": "{{base_url}}/posts/1",
+          "host": ["{{base_url}}"],
+          "path": ["posts", "1"]
+        }
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "https://jsonplaceholder.typicode.com"
+    }
+  ]
+}

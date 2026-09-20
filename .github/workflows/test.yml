@@ -10,4 +10,12 @@ jobs:
           python-version: '3.11'
       - run: pip install playwright pytest
       - run: playwright install --with-deps chromium
-      - run: cd 02-automation/playwright && pytest -v
+      - name: Playwright tests (example.com + saucedemo.com)
+        run: cd 02-automation/playwright && pytest -v
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: API tests con Newman (JSONPlaceholder)
+        run: |
+          npm install -g newman
+          newman run 02-automation/postman/collection.json -e 02-automation/postman/environment.json
