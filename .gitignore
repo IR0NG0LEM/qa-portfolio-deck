@@ -12,8 +12,9 @@ venv/
 *.log
 
 # Test reports (generated)
-
 reports/
+# ...pero los reportes documentales del portfolio SÍ se versionan
+!03-performance/reports/
 
 # IDE
 .vscode/
